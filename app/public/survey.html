@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Survey</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
+
+</head>
+<body>
+
+    <div class="container">     
+
+        <!-- Input Template -->
+        <h3><strong>First Input</strong></h3>
+        <h4>Input (Required)</h4>
+        <input type="text" id="user-name" class="form-control" required>
+
+        <h3><strong>2nd Input</strong></h3>
+        <h4>Input (Required)</h4>
+        <input type="text" id="user-picture" class="form-control" required>
+        
+        <!-- Drop Down Template -->
+        <h3><strong>First Question</strong></h3>
+        <h4>This is a test question.</h4>
+        <select class="chosen-select" id="q1">
+        <option value=""></option>
+        <option value="1">1 (Strongly Disagree)</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5 (Strongly Agree)</option>
+        </select>
+
+        <h3><strong>Second Question</strong></h3>
+        <h4>This is a test question.</h4>
+        <select class="chosen-select" id="q2">
+        <option value=""></option>
+        <option value="1">1 (Strongly Disagree)</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5 (Strongly Agree)</option>
+        </select>
+
+        <!-- Submit Button -->
+        <br>
+        <button type="button" class="btn btn-primary"  id="submit-survey">Go to Survey</button>
+            
+    </div>
+    
+</body>
+
+<!-- Get Json -->
+<script type="text/javascript">
+
+    function searchForFriend () {
+        var currentURL = window.location.origin;
+        var apiURL = currentURL + "/api/friends"; 
+
+        $.ajax ({
+            URL: apiURL,
+            // contentType: "application/json; charset=utf-8",
+            // dataType: "json",
+            method: "GET"
+        })
+        .done(function(response) {
+            var results = response.friendArray;
+            console.log("URL: "+ apiURL);
+            console.log("-----------------------------------");
+            console.log(results);
+        });
+    }
+
+    searchForFriend();
+
+    // Submit form data
+    $("#submit-survey").on("click", function(){
+
+        var newfriend = {
+            "name": $("#user-name").val().trim(),
+        "photo": $("#user-picture").val().trim(),
+        "scores": [
+            $("#q1").val(),
+            $("#q2").val()
+        ]
+        }
+
+        var currentURL = window.location.origin;
+        var apiURL = currentURL + "/api/friends"; 
+
+        $.post(apiURL, newfriend, function(data){
+            
+            if (data) {console.log("it worked");}
+            if (!data) {console.log("it failed");}
+        });
+
+    });
+
+</script>
+
+</html>
