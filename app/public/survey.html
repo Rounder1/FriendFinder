@@ -51,7 +51,7 @@
 
         <h3><strong>3 Question</strong></h3>
         <h4>This is a test question.</h4>
-        <select class="chosen-select" id="q2">
+        <select class="chosen-select" id="q3">
         <option value=""></option>
         <option value="1">1 (Strongly Disagree)</option>
         <option value="2">2</option>
@@ -62,7 +62,7 @@
 
         <h3><strong>4 Question</strong></h3>
         <h4>This is a test question.</h4>
-        <select class="chosen-select" id="q2">
+        <select class="chosen-select" id="q4">
         <option value=""></option>
         <option value="1">1 (Strongly Disagree)</option>
         <option value="2">2</option>
@@ -73,7 +73,7 @@
 
         <h3><strong>5 Question</strong></h3>
         <h4>This is a test question.</h4>
-        <select class="chosen-select" id="q2">
+        <select class="chosen-select" id="q5">
         <option value=""></option>
         <option value="1">1 (Strongly Disagree)</option>
         <option value="2">2</option>
@@ -84,7 +84,7 @@
 
         <h3><strong>6 Question</strong></h3>
         <h4>This is a test question.</h4>
-        <select class="chosen-select" id="q2">
+        <select class="chosen-select" id="q6">
         <option value=""></option>
         <option value="1">1 (Strongly Disagree)</option>
         <option value="2">2</option>
@@ -95,7 +95,7 @@
 
         <h3><strong>7 Question</strong></h3>
         <h4>This is a test question.</h4>
-        <select class="chosen-select" id="q2">
+        <select class="chosen-select" id="q7">
         <option value=""></option>
         <option value="1">1 (Strongly Disagree)</option>
         <option value="2">2</option>
@@ -106,7 +106,7 @@
 
         <h3><strong>8 Question</strong></h3>
         <h4>This is a test question.</h4>
-        <select class="chosen-select" id="q2">
+        <select class="chosen-select" id="q8">
         <option value=""></option>
         <option value="1">1 (Strongly Disagree)</option>
         <option value="2">2</option>
@@ -117,7 +117,7 @@
 
         <h3><strong>9 Question</strong></h3>
         <h4>This is a test question.</h4>
-        <select class="chosen-select" id="q2">
+        <select class="chosen-select" id="q9">
         <option value=""></option>
         <option value="1">1 (Strongly Disagree)</option>
         <option value="2">2</option>
@@ -128,7 +128,7 @@
 
         <h3><strong>10 Question</strong></h3>
         <h4>This is a test question.</h4>
-        <select class="chosen-select" id="q2">
+        <select class="chosen-select" id="q10">
         <option value=""></option>
         <option value="1">1 (Strongly Disagree)</option>
         <option value="2">2</option>
@@ -140,7 +140,7 @@
         <!-- Submit Button -->
         <br>
         <br>
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Go to Survey</button>
+        <button type="button" class="btn btn-primary" id="submit-survey" data-toggle="modal" data-target="#myModal">Go to Survey</button>
 
         <!-- Modal -->
         <div id="myModal" class="modal fade" role="dialog">
@@ -169,38 +169,41 @@
 <!-- Get Json -->
 <script type="text/javascript">
 
+// Submit form data
+$("#submit-survey").on("click", function(){
+
+    var newfriend = {
+        "name": $("#user-name").val().trim(),
+        "photo": $("#user-picture").val().trim(),
+        "scores": [
+        $("#q1").val(),
+        $("#q2").val(),
+        $("#q3").val(),
+        $("#q4").val(),
+        $("#q5").val(),
+        $("#q6").val(),
+        $("#q7").val(),
+        $("#q8").val(),
+        $("#q9").val(),
+        $("#q10").val()
+    ]
+    };
+
+    $.post('/api/friends', newfriend, function(data){
+        if (data) {console.log("it worked");}
+        if (!data) {console.log("it failed");}
+    });
+
+    searchForFriend();
+});
+
+
+// GET function
     function searchForFriend () {
-        $.get('/api/friends', function(data) {
-            // console.log(data);
-        }).then(function(res) {
+        $.get('/api/friends', function(data) {}).then(function(res) {
             console.log(JSON.parse(res));
         })
     }
-    searchForFriend();
-
-
-    // Submit form data
-    $("#submit-survey").on("click", function(){
-
-        var newfriend = {
-            "name": $("#user-name").val().trim(),
-        "photo": $("#user-picture").val().trim(),
-        "scores": [
-            $("#q1").val(),
-            $("#q2").val()
-        ]
-        }
-
-        var currentURL = window.location.origin;
-        var apiURL = currentURL + "/api/friends"; 
-
-        $.post(apiURL, newfriend, function(data){
-            
-            if (data) {console.log("it worked");}
-            if (!data) {console.log("it failed");}
-        });
-
-    });
 
 </script>
 
