@@ -21,14 +21,10 @@
         <h3><strong>First Input</strong></h3>
         <h4>Input (Required)</h4>
         <input type="text" id="user-name" class="form-control" required>
-
-        <h3><strong>2nd Input</strong></h3>
-        <h4>Input (Required)</h4>
-        <input type="text" id="user-picture" class="form-control" required>
         
         <!-- Drop Down Template -->
         <h3><strong>1 Question</strong></h3>
-        <h4>This is a test question.</h4>
+        <h4>How much do you like Python?</h4>
         <select class="chosen-select" id="q1">
         <option value=""></option>
         <option value="1">1 (Strongly Disagree)</option>
@@ -39,7 +35,7 @@
         </select>
 
         <h3><strong>2 Question</strong></h3>
-        <h4>This is a test question.</h4>
+        <h4>How much do you like Go?</h4>
         <select class="chosen-select" id="q2">
         <option value=""></option>
         <option value="1">1 (Strongly Disagree)</option>
@@ -50,7 +46,7 @@
         </select>
 
         <h3><strong>3 Question</strong></h3>
-        <h4>This is a test question.</h4>
+        <h4>How much do you like Javascript?</h4>
         <select class="chosen-select" id="q3">
         <option value=""></option>
         <option value="1">1 (Strongly Disagree)</option>
@@ -61,7 +57,7 @@
         </select>
 
         <h3><strong>4 Question</strong></h3>
-        <h4>This is a test question.</h4>
+        <h4>How much do you like C++?</h4>
         <select class="chosen-select" id="q4">
         <option value=""></option>
         <option value="1">1 (Strongly Disagree)</option>
@@ -72,7 +68,7 @@
         </select>
 
         <h3><strong>5 Question</strong></h3>
-        <h4>This is a test question.</h4>
+        <h4>How much do you like Ruby?</h4>
         <select class="chosen-select" id="q5">
         <option value=""></option>
         <option value="1">1 (Strongly Disagree)</option>
@@ -83,7 +79,7 @@
         </select>
 
         <h3><strong>6 Question</strong></h3>
-        <h4>This is a test question.</h4>
+        <h4>How much do you like PHP?</h4>
         <select class="chosen-select" id="q6">
         <option value=""></option>
         <option value="1">1 (Strongly Disagree)</option>
@@ -94,7 +90,7 @@
         </select>
 
         <h3><strong>7 Question</strong></h3>
-        <h4>This is a test question.</h4>
+        <h4>How much do you like C#?</h4>
         <select class="chosen-select" id="q7">
         <option value=""></option>
         <option value="1">1 (Strongly Disagree)</option>
@@ -105,7 +101,7 @@
         </select>
 
         <h3><strong>8 Question</strong></h3>
-        <h4>This is a test question.</h4>
+        <h4>How much do you like Java?</h4>
         <select class="chosen-select" id="q8">
         <option value=""></option>
         <option value="1">1 (Strongly Disagree)</option>
@@ -116,7 +112,7 @@
         </select>
 
         <h3><strong>9 Question</strong></h3>
-        <h4>This is a test question.</h4>
+        <h4>How much do you like Scheme?</h4>
         <select class="chosen-select" id="q9">
         <option value=""></option>
         <option value="1">1 (Strongly Disagree)</option>
@@ -127,7 +123,7 @@
         </select>
 
         <h3><strong>10 Question</strong></h3>
-        <h4>This is a test question.</h4>
+        <h4>How much do you like Fortran?</h4>
         <select class="chosen-select" id="q10">
         <option value=""></option>
         <option value="1">1 (Strongly Disagree)</option>
@@ -153,7 +149,7 @@
                     <h4 class="modal-title">Modal Header</h4>
                     </div>
                     <div class="modal-body">
-                    <p>Some text in the modal.</p>
+                    
                     </div>
                     <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -174,7 +170,6 @@ $("#submit-survey").on("click", function(){
 
     var newfriend = {
         "name": $("#user-name").val().trim(),
-        "photo": $("#user-picture").val().trim(),
         "scores": [
         $("#q1").val(),
         $("#q2").val(),
@@ -201,7 +196,18 @@ $("#submit-survey").on("click", function(){
 // GET function
     function searchForFriend () {
         $.get('/api/friends', function(data) {}).then(function(res) {
-            console.log(JSON.parse(res));
+
+            var newFriendMatch = JSON.parse(res);
+            console.log(newFriendMatch);
+
+
+            $('.modal-body').append(
+            "<h1>" + newFriendMatch.name + "</h1>"
+            ); 
+
+            $('.modal-body').append(
+            "<p> Is your best match! </p>"
+            ); 
         })
     }
 

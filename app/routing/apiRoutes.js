@@ -2,12 +2,11 @@ var friendData = require("../data/friends.js");
 
 module.exports = function (app) {
 
-
-
+    var bestMatchNumber = 0;
 
 
     app.get("/api/friends", function(req, res) {
-        res.send(JSON.stringify(friendData));
+        res.send(JSON.stringify(friendData[bestMatchNumber]));
     });
 
 
@@ -19,6 +18,23 @@ module.exports = function (app) {
         var friendScoresParsed = [];
 
 
+        function compaireDifference (arr) {
+
+            var totalDifference = 0;
+            
+            for (i = 0; i < parsedUserScore.length; i++) {
+                var absVal = parsedUserScore[i] -arr[i];
+                totalDifference += Math.abs(absVal);
+            }
+            return totalDifference;
+        }
+
+
+        for (i = 0; i < userScores.length; i++) {
+            parsedUserScore.push(parseInt(userScores[i]));
+        }
+
+
         for (i = 0; i < friendData.length; i++) {
             friendScoresArray.push(friendData[i].scores);
         }
@@ -28,15 +44,20 @@ module.exports = function (app) {
             friendScoresParsed.push(friendScoresArray[i].map(num => parseInt(num, 10)));
         }
 
-        console.log(friendScoresParsed);
+        var firstFriend = compaireDifference(friendScoresParsed[0]);
+        var secondFriend = compaireDifference(friendScoresParsed[1]);
+        var thirdFriend = compaireDifference(friendScoresParsed[2]);
 
-
-        for (i = 0; i < userScores.length; i++) {
-            parsedUserScore.push(parseInt(userScores[i]));
+        if (firstFriend < secondFriend && firstFriend < thirdFriend) {
+            bestMatchNumber = 0;
+        } else if (secondFriend < firstFriend && secondFriend < thirdFriend) {
+            bestMatchNumber = 1;
+        } else {
+            bestMatchNumber = 2;
         }
-        
-        
-        friendData.push(req.body);
-    
+
+        // friendData.push(req.body);
+
+
     });
 }

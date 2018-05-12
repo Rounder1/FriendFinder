@@ -1,7 +1,6 @@
 var friendArray = [
     {
-        "name": "Ahmed",
-        "photo": "https://media.licdn.com/mpr/mpr/shrinknp_200_200/AAEAAQAAAAAAAAq7AAAAJDAwYzI4NTQ4LWYwZWUtNGFkYS1hNTYwLTZjYzkwY2ViZDA3OA.jpg",
+        "name": "Fred",
         "scores": [
         "5",
         "1",
@@ -16,8 +15,7 @@ var friendArray = [
         ]
     },
     {
-        "name": "Jacob Deming",
-        "photo": "https://pbs.twimg.com/profile_images/691785039043022849/oWsy8LNR.jpg",
+        "name": "Sue",
         "scores": [
         "4",
         "2",
@@ -29,6 +27,21 @@ var friendArray = [
         "1",
         "3",
         "2"
+        ]
+    },
+    {
+        "name": "Andy",
+        "scores": [
+        "1",
+        "2",
+        "1",
+        "1",
+        "2",
+        "2",
+        "2",
+        "1",
+        "5",
+        "5"
         ]
     }
 ];
